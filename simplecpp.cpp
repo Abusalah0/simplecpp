@@ -3034,8 +3034,9 @@ long long simplecpp::characterLiteralToLL(const std::string& str)
 
 static bool isFloatingPointLiteral(const std::string &str)
 {
-    if (!simplecpp::Token::isNumberLike(str) &&
-        !(str.size() > 1U && str[0] == '.' && std::isdigit(static_cast<unsigned char>(str[1]))))
+    const bool startsWithDotDigit = str.size() > 1U && str[0] == '.' &&
+                                   std::isdigit(static_cast<unsigned char>(str[1]));
+    if (!simplecpp::Token::isNumberLike(str) && !startsWithDotDigit)
         return false;
 
     if (str.find('.') != std::string::npos)
